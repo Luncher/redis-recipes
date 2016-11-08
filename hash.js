@@ -82,6 +82,12 @@ client.hsetAsync('key1', 'field1', 'value1')
     });
   });
 })
+.then(function() {
+  return client.hscanAsync('key1', 0, 'MATCH', '*2', 'COUNT', 500)
+  .then(function(ret) {
+    console.dir(ret);
+  });
+})
 .catch(function(err) {
   console.log(err);
 })
