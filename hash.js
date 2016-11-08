@@ -2,6 +2,7 @@ var client = require('./connect');
 var assert = require('assert');
 var Promise = require('bluebird');
 
+
 client.hsetAsync('key1', 'field1', 'value1')
 .then(function(ret) {
   return client.hgetAsync('key1', 'field1')
@@ -83,9 +84,9 @@ client.hsetAsync('key1', 'field1', 'value1')
   });
 })
 .then(function() {
-  return client.hscanAsync('key1', 0, 'MATCH', '*2', 'COUNT', 500)
+  return client.hscanAsync('key1', 0, 'MATCH', '*', 'COUNT', 1)
   .then(function(ret) {
-    console.dir(ret);
+    assert(ret[0] == 0);
   });
 })
 .catch(function(err) {
